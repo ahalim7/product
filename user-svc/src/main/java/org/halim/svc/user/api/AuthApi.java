@@ -35,12 +35,10 @@ import static java.util.stream.Collectors.joining;
 @RequestMapping(path = "api/public")
 @RequiredArgsConstructor
 public class AuthApi {
-
   private final AuthenticationManager authenticationManager;
   private final JwtEncoder jwtEncoder;
   private final UserViewMapper userViewMapper;
   private final UserService userService;
-
   @PostMapping("login")
   public ResponseEntity<UserView> login(@RequestBody @Valid AuthRequest request) {
     try {
@@ -57,7 +55,7 @@ public class AuthApi {
         .collect(joining(" "));
 
       JwtClaimsSet claims = JwtClaimsSet.builder()
-        .issuer("example.io")
+        .issuer("org.halim.svc")
         .issuedAt(now)
         .expiresAt(now.plusSeconds(expiry))
         .subject(format("%s,%s", user.getId(), user.getUsername()))
